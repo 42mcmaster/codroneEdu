@@ -1,33 +1,44 @@
 # CoDrone EDU: Python Command Reference
 
-The commands you will use all year, with what each one does and what goes wrong. Keep this open while you code.
+How to fly the drone with the controller, and the commands you will use all year with what each one does and what goes wrong. Keep this open while you fly and while you code.
 
-Written for the **Python for Robolink** browser editor and the **codrone-edu** library, version 2.8.
+Section 2 is hand flying with the controller. Everything from section 3 on is Python, written for the **Python for Robolink** browser editor and the **codrone-edu** library, version 2.8.
 
 ## Table of Contents
 
 1. [Before You Fly](#1-before-you-fly)
-2. [Connecting to the Drone](#2-connecting-to-the-drone)
-   - [2.1 The program skeleton](#21-the-program-skeleton)
-   - [2.2 pair and close](#22-pair-and-close)
-3. [Taking Off and Landing](#3-taking-off-and-landing)
-4. [Moving: Two Different Ways](#4-moving-two-different-ways)
-   - [4.1 Distance commands](#41-distance-commands)
-   - [4.2 Power and time commands](#42-power-and-time-commands)
-   - [4.3 Which one to use](#43-which-one-to-use)
-5. [Turning](#5-turning)
-6. [Ready-Made Shapes](#6-ready-made-shapes)
-7. [Lights and Sound](#7-lights-and-sound)
-8. [Sensors](#8-sensors)
-   - [8.1 Battery](#81-battery)
-   - [8.2 Height and the bottom range sensor](#82-height-and-the-bottom-range-sensor)
-   - [8.3 The front range sensor](#83-the-front-range-sensor)
-   - [8.4 Color](#84-color)
-   - [8.5 Angles and position](#85-angles-and-position)
-9. [Using Sensors in Loops and Conditions](#9-using-sensors-in-loops-and-conditions)
-10. [Fixing Drift with Trim](#10-fixing-drift-with-trim)
-11. [When Something Goes Wrong](#11-when-something-goes-wrong)
-12. [Quick Reference Table](#12-quick-reference-table)
+2. [Flying with the Controller](#2-flying-with-the-controller)
+   - [2.1 The controller has two states](#21-the-controller-has-two-states)
+   - [2.2 Powering on and pairing](#22-powering-on-and-pairing)
+   - [2.3 The buttons](#23-the-buttons)
+   - [2.4 The joysticks](#24-the-joysticks)
+   - [2.5 Taking off, landing, and speed](#25-taking-off-landing-and-speed)
+   - [2.6 Emergency stop](#26-emergency-stop)
+   - [2.7 Flips](#27-flips)
+   - [2.8 Trimming with the direction pad](#28-trimming-with-the-direction-pad)
+   - [2.9 The screen](#29-the-screen)
+   - [2.10 Why this matters once you start coding](#210-why-this-matters-once-you-start-coding)
+3. [Connecting to the Drone](#3-connecting-to-the-drone)
+   - [3.1 The program skeleton](#31-the-program-skeleton)
+   - [3.2 pair and close](#32-pair-and-close)
+4. [Taking Off and Landing](#4-taking-off-and-landing)
+5. [Moving: Two Different Ways](#5-moving-two-different-ways)
+   - [5.1 Distance commands](#51-distance-commands)
+   - [5.2 Power and time commands](#52-power-and-time-commands)
+   - [5.3 Which one to use](#53-which-one-to-use)
+6. [Turning](#6-turning)
+7. [Ready-Made Shapes](#7-ready-made-shapes)
+8. [Lights and Sound](#8-lights-and-sound)
+9. [Sensors](#9-sensors)
+   - [9.1 Battery](#91-battery)
+   - [9.2 Height and the bottom range sensor](#92-height-and-the-bottom-range-sensor)
+   - [9.3 The front range sensor](#93-the-front-range-sensor)
+   - [9.4 Color](#94-color)
+   - [9.5 Angles and position](#95-angles-and-position)
+10. [Using Sensors in Loops and Conditions](#10-using-sensors-in-loops-and-conditions)
+11. [Fixing Drift with Trim](#11-fixing-drift-with-trim)
+12. [When Something Goes Wrong](#12-when-something-goes-wrong)
+13. [Quick Reference Table](#13-quick-reference-table)
 
 ---
 
@@ -43,11 +54,139 @@ Every flight, every time:
 
 The drone takes off to about 80 cm and you cannot change that. Plan your flight path knowing it starts at roughly waist height.
 
+Keep the controller in your hands whenever a program is running. Section 2 covers how to use it.
+
 ---
 
-## 2. Connecting to the Drone
+## 2. Flying with the Controller
 
-### 2.1 The program skeleton
+Before you write a line of code, you need to be able to fly the drone by hand. Two reasons. First, when a program sends the drone somewhere you did not intend, the controller is how you take it back. Second, the four things the joysticks do are the same four things your code sets later, under the same names.
+
+### 2.1 The controller has two states
+
+The controller does two different jobs and can only do one at a time.
+
+- **Remote control state** — the joysticks and buttons fly the drone. This is hand flying.
+- **LINK state** — the controller passes commands from your program on the computer out to the drone. This is what `drone.pair()` uses.
+
+When the controller is plugged into the computer with the USB cable, it usually comes up in the LINK state. **A quick press of the power button switches between the two states.** A press and hold powers the controller on or off instead.
+
+If the drone ignores every stick and every button, you are almost certainly in the LINK state. That is the most common "my drone is broken" moment of this unit.
+
+The USB cable goes to the controller, never to the drone. The drone talks to the controller over its own radio link.
+
+### 2.2 Powering on and pairing
+
+**Drone:** slide the battery into the slot on the bottom, small tab facing down. There is no power switch — putting the battery in turns it on, pulling it out turns it off.
+
+**Controller:** two AA batteries, or the USB cable. Press and hold the power button until it chimes.
+
+Your drone and controller came paired, and they stay paired through power cycles. They find each other automatically when both are on and in range. Check the number labels before you start: controller 007 flies drone 007 and nothing else.
+
+To check that you are paired, press **R1** a few times. The LED colors on the drone and on the controller should change together. If the controller screen says SEARCHING and the drone LED is flashing red, they are not paired.
+
+To pair a drone to a different controller:
+
+1. Put a battery in the drone. Press and hold the pairing button on the bottom of the drone until the drone LED flashes yellow.
+2. On the controller, make sure you are not in the LINK state, then press and hold **P** until you hear a chime.
+3. Both lights go solid and the screen shows the paired symbol.
+
+Extend the antenna and point it at the drone. The signal does not travel well through people, walls, or glass.
+
+### 2.3 The buttons
+
+Almost every button does one thing on a quick press and something different on a press and hold. Hold means about three seconds.
+
+| Button | Press | Press and hold |
+|---|---|---|
+| `L1` | Change flight speed: 30%, 70%, 100% | Take off, or land if already flying |
+| `R1` | Change the LED color on the drone and controller | Get ready to flip, then push the right joystick the direction you want |
+| `H` | Screen backlight on and off | Return to the takeoff location |
+| `S` | Previous screen | Settings menu |
+| `P` | Next screen | Pairing mode |
+| Power | Switch between remote control and LINK state | Power the controller on and off |
+| Direction pad | Trim the drone (see 2.8) | — |
+
+### 2.4 The joysticks
+
+The default layout is Mode 2:
+
+**Left joystick**
+
+- Up and down — **throttle**. The drone climbs and descends.
+- Left and right — **yaw**. The drone spins in place to face a new direction.
+
+**Right joystick**
+
+- Up and down — **pitch**. The drone moves forward and backward.
+- Left and right — **roll**. The drone slides left and right.
+
+Learn those four words now. They come back in code as `set_throttle()`, `set_yaw()`, `set_pitch()`, and `set_roll()`, doing exactly the same things.
+
+**Everything is from the drone's point of view, not yours.** When the drone is facing you, its left is your right, and pushing the stick left sends it to your right. Most first-day crashes are this and nothing else. Keep the red propellers at the front so you can always tell which way it is pointing.
+
+### 2.5 Taking off, landing, and speed
+
+| What you want | What you do |
+|---|---|
+| Take off | Press and hold `L1` for 3 seconds. The drone lifts to about 70–90 cm and hovers. |
+| Land | While flying, press and hold `L1` for 3 seconds. |
+| Quick takeoff | Push both joysticks down and inward toward each other to start the motors, then push up on the left joystick. |
+| Change speed | Press `L1`. It cycles 30%, 70%, 100%, shown as S1, S2, S3 in the top left of the screen. |
+
+Fly at S1 indoors. S3 is faster than the room you are in.
+
+### 2.6 Emergency stop
+
+**Press and hold `L1` and pull down on the left joystick.** The motors cut immediately and the drone drops.
+
+Land whenever you can — it is the safe way to end a flight. Emergency stop is for when the drone is headed at a person, a window, or a hard fall, and you cannot wait. Cutting the motors from above 10 feet or at speed can damage the drone, so use it sparingly. Catching it is often better.
+
+Memorize this before you run your first program. Your code has `emergency_stop()`, but that only fires when the program reaches that line. The controller works right now, no matter what the program is doing.
+
+### 2.7 Flips
+
+Press and hold `R1`, then push the right joystick in the direction you want to flip. Give the drone about a meter of clear space in every direction, including above it.
+
+The drone will not flip on a low battery — the same rule that makes `flip()` fail silently in code. If nothing happens, check the battery first.
+
+### 2.8 Trimming with the direction pad
+
+If the drone slides in one direction while hovering with both sticks centered, it needs trim.
+
+Press the direction pad **opposite** to the drift:
+
+| The drone drifts | You press |
+|---|---|
+| Forward | Down |
+| Backward | Up |
+| Left | Right |
+| Right | Left |
+
+Press, hover, watch, press again. A few taps at a time.
+
+Trim is stored on the drone and survives a battery swap, so a drone someone else trimmed badly stays bad until it is fixed or reset. This is the same stored setting your code reaches with `set_trim()` and `reset_trim()` in section 11.
+
+### 2.9 The screen
+
+Press `S` and `P` to move between screens: battery level for the drone and the controller, sensor readings, and the current speed setting. Hold `S` for the settings menu. Hold `H` to turn the backlight off and save the AA batteries.
+
+The speed setting sits in the top left corner of every screen as S1, S2, or S3.
+
+### 2.10 Why this matters once you start coding
+
+- **The controller is your off switch.** Emergency stop works whether or not a program is running. Keep the controller in your hands when you run code.
+- **Know which state you are in.** `pair()` needs the LINK state. Hand flying needs the remote control state. Half the connection problems in this unit are the wrong state.
+- **The sticks and the code are the same four values.** `set_pitch(50)` followed by `move(1)` is you pushing the right joystick halfway forward for one second. Section 5.2 is the code version of section 2.4.
+- **Directions match.** Positive pitch is forward on both. Positive yaw is a left turn on both. If you learn it on the sticks, you already know it in code.
+- **Trim before you debug.** If the drone drifts by hand, it will drift under your program too, and you will spend the period rewriting code that was fine.
+- **Fly the path by hand first.** If you cannot fly the course yourself, you are not ready to write the program for it.
+
+---
+
+## 3. Connecting to the Drone
+
+### 3.1 The program skeleton
 
 Every program you write this unit has the same four bookends. Write these first, then put your flight code in the middle.
 
@@ -64,7 +203,7 @@ drone.close()                     # disconnect when the program ends
 
 `drone = Drone()` makes an **object**. Every command after that is called on it, which is why they all start with `drone.` — `drone.takeoff()`, `drone.land()`, and so on.
 
-### 2.2 pair and close
+### 3.2 pair and close
 
 `pair()` connects your program to the controller, which is talking to the drone over its own radio link. The USB cable goes to the controller, not to the drone.
 
@@ -77,7 +216,7 @@ drone.pair('COM3')        # or name the port yourself if the automatic one fails
 
 ---
 
-## 3. Taking Off and Landing
+## 4. Taking Off and Landing
 
 ```python
 drone.takeoff()     # lifts to about 80 cm and hovers
@@ -99,11 +238,11 @@ drone.land()
 
 ---
 
-## 4. Moving: Two Different Ways
+## 5. Moving: Two Different Ways
 
 The library gives you two separate ways to move, and mixing them up is the most common source of confusion. Learn both, then pick one per program.
 
-### 4.1 Distance commands
+### 5.1 Distance commands
 
 You say how far to go, and the drone works out the rest.
 
@@ -130,7 +269,7 @@ The four values are **x** (forward and back), **y** (left and right), **z** (up 
 
 These commands use the downward-facing optical flow sensor to judge distance, so they need a **well-lit, patterned floor**. Over a plain glossy surface the drone cannot see itself moving and the distances come out wrong.
 
-### 4.2 Power and time commands
+### 5.2 Power and time commands
 
 Here you set how hard to push in each direction, then say how long to push. Nothing moves until you call `move()`.
 
@@ -172,7 +311,7 @@ print("yaw:", values[2])
 print("throttle:", values[3])
 ```
 
-### 4.3 Which one to use
+### 5.3 Which one to use
 
 - **Flying a measured path** — a taped course, a set distance — use the distance commands. They are more accurate and easier to read.
 - **Reacting to a sensor while flying** — creeping forward until a wall appears — use power and time, because you can call `move()` over and over inside a loop.
@@ -181,7 +320,7 @@ Do not mix the two styles inside one flight unless you have a reason. Pick one, 
 
 ---
 
-## 5. Turning
+## 6. Turning
 
 ```python
 drone.turn_degree(90)      # turn left 90 degrees
@@ -200,7 +339,7 @@ drone.turn(-20, 5)         # turn right at 20% power for 5 seconds
 
 ---
 
-## 6. Ready-Made Shapes
+## 7. Ready-Made Shapes
 
 The library has whole maneuvers built in.
 
@@ -232,7 +371,7 @@ These shapes are fun, but writing a square yourself out of `move_forward()` and 
 
 ---
 
-## 7. Lights and Sound
+## 8. Lights and Sound
 
 ```python
 drone.set_drone_LED(0, 0, 255, 100)        # red, green, blue, brightness
@@ -263,11 +402,11 @@ LEDs are the easiest way to see what your program is doing without reading the c
 
 ---
 
-## 8. Sensors
+## 9. Sensors
 
 Getter functions read a value and hand it back to your program. You have to do something with what comes back — print it, store it in a variable, or test it in an `if`.
 
-### 8.1 Battery
+### 9.1 Battery
 
 ```python
 battery = drone.get_battery()
@@ -276,7 +415,7 @@ print("Battery:", battery, "%")
 
 Returns the percentage as a number. Check this at the start of every program.
 
-### 8.2 Height and the bottom range sensor
+### 9.2 Height and the bottom range sensor
 
 ```python
 height = drone.get_height()          # centimeters by default
@@ -294,7 +433,7 @@ Neither of those is a real height, so check for them before you use the number i
 
 `get_bottom_range()` reads the same sensor and behaves the same way.
 
-### 8.3 The front range sensor
+### 9.3 The front range sensor
 
 ```python
 distance = drone.get_front_range()        # centimeters by default
@@ -315,7 +454,7 @@ drone.keep_distance(10, 60)      # fly forward, then hold 60 cm away for 10 s
 
 `detect_wall()` defaults to 50 cm. `avoid_wall()` defaults to 2 seconds and 70 cm. `keep_distance()` defaults to 2 seconds and 50 cm.
 
-### 8.4 Color
+### 9.4 Color
 
 The drone has two color sensors, one front and one back, pre-calibrated for eight colors that match the color cards.
 
@@ -333,7 +472,7 @@ Hold the card flat, a few centimeters from the sensor, under steady light. Shado
 
 > Training the drone on your own custom colors is not available in the Python for Robolink browser editor. Use the eight built-in colors.
 
-### 8.5 Angles and position
+### 9.5 Angles and position
 
 ```python
 print(drone.get_angle_x())    # roll, in degrees
@@ -353,7 +492,7 @@ If you want everything at once, `get_sensor_data()` returns a list of 31 values 
 
 ---
 
-## 9. Using Sensors in Loops and Conditions
+## 10. Using Sensors in Loops and Conditions
 
 This is where the drone stops following a script and starts reacting. The pattern is always the same: read the sensor, test the value, decide what to do.
 
@@ -410,7 +549,7 @@ while distance > 50 and distance != 999:
 
 ---
 
-## 10. Fixing Drift with Trim
+## 11. Fixing Drift with Trim
 
 If your drone slides to one side while hovering with no commands running, it needs trim.
 
@@ -427,7 +566,7 @@ If you set trim right before takeoff, put a `time.sleep(1)` in between or the ta
 
 ---
 
-## 11. When Something Goes Wrong
+## 12. When Something Goes Wrong
 
 | What you see | What it usually is |
 |---|---|
@@ -435,6 +574,8 @@ If you set trim right before takeoff, put a `time.sleep(1)` in between or the ta
 | Drone takes off and immediately lands | No `hover()` between `takeoff()` and the next command. |
 | `land()` seems to be ignored | Same cause. Add `hover(1)` before it. |
 | Nothing happens at all | The controller is connected but the drone is off or not paired to that controller. |
+| Drone ignores the joysticks and buttons | The controller is in the LINK state. Quick-press the power button to get back to remote control. |
+| Screen says SEARCHING | Not paired, or the drone has no battery in it. Press `R1` and see if both LEDs change together. |
 | Drone keeps flying in one direction | A flight variable is still set from earlier. Call `reset_move_values()`. |
 | Distances are wrong | Flying over a plain or shiny floor. The optical flow sensor needs a patterned, well-lit surface. |
 | `flip()` does nothing | Battery is under 50%. |
@@ -442,7 +583,7 @@ If you set trim right before takeoff, put a `time.sleep(1)` in between or the ta
 | Sensor returns 999 or 999.9 | Nothing within 150 cm. That is not a distance, it is "I see nothing." |
 | Sensor returns -10, -100, or 0 | Sensor error. Land, wait, try again. |
 | Color comes back Unknown | Card is too far, at an angle, or in shadow. |
-| Drone drifts while hovering | Trim. See section 10. |
+| Drone drifts while hovering | Trim. See section 11. |
 
 To ask the drone what it thinks is wrong:
 
@@ -453,7 +594,27 @@ print(drone.get_flight_state())    # what it thinks it is doing right now
 
 ---
 
-## 12. Quick Reference Table
+## 13. Quick Reference Table
+
+**Controller buttons**
+
+| Button | Press | Press and hold |
+|---|---|---|
+| `L1` | Speed 30% / 70% / 100% | Take off or land |
+| `R1` | Change LED color | Ready a flip, then push the right joystick |
+| `H` | Backlight on and off | Return to the takeoff location |
+| `S` | Previous screen | Settings |
+| `P` | Next screen | Pairing mode |
+| Power | Remote control state or LINK state | Controller on and off |
+| Direction pad | Trim | — |
+| `L1` + left joystick down | — | Emergency stop |
+
+**Controller joysticks (Mode 2)**
+
+| Stick | Left and right | Up and down |
+|---|---|---|
+| Left | Yaw — spin in place | Throttle — up and down |
+| Right | Roll — slide sideways | Pitch — forward and back |
 
 **Connection**
 
