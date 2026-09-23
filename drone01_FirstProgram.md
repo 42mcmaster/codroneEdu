@@ -14,7 +14,6 @@ Do the same checks you did for hand flying:
 
 - Battery in the drone, charged.
 - All four propellers on, none chipped or loose.
-- Your square is clear. Nothing fragile inside it.
 - Controller on, paired to your drone. The screen should not say SEARCHING.
 
 **Your controller stays in your hands for the whole lesson.** If the drone does something you did not expect, press and hold `L1` and pull down on the left joystick. That is emergency stop, and it works no matter what your program is doing.
