@@ -10,7 +10,7 @@
 
 ## 1. Warm-up: out and back
 
-New file, `path.py`. The starter code is already there — you are filling in the middle.
+New file, `drone02.py`. The starter code is already there — you are filling in the middle.
 
 ```python
 from codrone_edu.drone import *
@@ -145,11 +145,19 @@ Not sure what a command takes? The **Documentation** panel on the right has the 
 
 ---
 
+## Save and submit
+
+1. **Name it right in the editor.** This one is `drone02.py`.
+2. **Download it.** Right-click the file in the file panel and choose download. Single file, not Download All.
+3. **Move it into your repo.** Drag it from Downloads into `Documents\GitHub\CoDrone`.
+4. **Commit** in GitHub Desktop with a real summary.
+5. **Push origin,** then check github.com.
+
+---
+
 ## Turn in
 
-Download the file first — Menu > File > Download All, or right-click `path.py` and download. The editor does not push to GitHub for you.
-
-Push `path.py` and a `README.md` with:
+`drone02.py` in your CoDrone repo, plus a `README.md` with:
 
 1. Your measurement table from step 1 — asked for, measured, difference, across three runs.
 2. What you expected from the two `turn_degree(90)` calls in step 2, and what really happened.

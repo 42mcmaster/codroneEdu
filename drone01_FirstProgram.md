@@ -38,7 +38,7 @@ The controller works no matter what the computer is doing. Keep it in your hands
 3. Click **Connect** in the connection window, bottom left. Pick your drone in the popup.
 4. The connection window turns green and says CoDrone EDU.
 
-Right-click `my projects` and make a new file called `first_flight.py`.
+Right-click `my projects` and make a new file called `drone01.py`.
 
 ---
 
@@ -156,15 +156,19 @@ Not sure what a command takes? Look it up in the **Documentation** panel on the 
 
 ---
 
-## 8. Save your work
+## 8. Save and submit
 
-Menu > File > Download All, or right-click `first_flight.py` and download just that file. The editor autosaves, but it does not push to GitHub. You download the file and add it to your repo yourself.
+1. **Name it right in the editor.** This one is `drone01.py`.
+2. **Download it.** Right-click the file in the file panel and choose download. Single file, not Download All.
+3. **Move it into your repo.** Drag it from Downloads into `Documents\GitHub\CoDrone`.
+4. **Commit** in GitHub Desktop with a real summary.
+5. **Push origin,** then check github.com. If you cannot see it in a browser, it did not submit.
 
 ---
 
 ## Turn in
 
-Push `first_flight.py` and a `README.md` answering:
+`drone01.py` in your CoDrone repo, plus a `README.md` answering:
 
 1. What was the battery percentage on your first run?
 2. What happens if you remove the `hover()` line, and why?

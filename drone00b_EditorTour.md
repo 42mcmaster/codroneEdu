@@ -10,11 +10,11 @@
 
 ## 1. Watch the tour
 
-Watch the Python for Robolink tour video (together in class) https://www.youtube.com/watch?v=-gKZ-JbVWOA. Follow along on your own machine as it goes. You will use the checklist in section 6 to prove you found everything.
+Watch the Python for Robolink tour video your instructor plays. Follow along on your own machine as it goes. You will use the checklist in section 6 to prove you found everything.
 
 Python for Robolink is an IDE — an integrated development environment. That is a coding platform built for one job. This one is built for the CoDrone EDU.
 
-Open **codrone.robolink.com/edu/python/** in **Google Chrome**. It needs to be Chrome to ensure all features work.
+Open **codrone.robolink.com/edu/python/** in **Google Chrome**. Not Edge, not Safari, not Firefox. Some features only work in Chrome.
 
 ---
 
@@ -127,8 +127,8 @@ Do all of these. Check them off as you go.
 - [ ] Opened the editor in Chrome
 - [ ] Connected the drone — connection window is green and says CoDrone EDU
 - [ ] Made a new folder inside `my projects`
-- [ ] Made a new file named `tour.py` inside that folder
-- [ ] In `tour.py`, printed your name to the Console with `print("your name")` and clicked Run
+- [ ] Made a new file named `drone00b.py` inside that folder
+- [ ] In `drone00b.py`, printed your name to the Console with `print("your name")` and clicked Run
 - [ ] Typed `drone.` and scrolled the autocomplete list
 - [ ] Found `takeoff()` in the Documentation panel and read what it does
 - [ ] Opened the sensor dashboard and tilted the drone to make the numbers change
@@ -136,17 +136,23 @@ Do all of these. Check them off as you go.
 
 ---
 
-## 7. Save your work
+## 7. Save and submit
 
-The editor autosaves, but **download your project at the end of every session** anyway. Menu > File > Download All, or right-click a single file and choose download.
+Same five steps for every drone assignment this unit.
 
-This is also how your code gets into your repo. The editor does not push to GitHub — you download the file and add it yourself.
+1. **Name it right in the editor.** This one is `drone00b.py`. The file name is part of the grade.
+2. **Download it.** Right-click the file in the file panel and choose download. Use the single-file download, not Menu > File > Download All — that packages the whole project and you would have to unpack it.
+3. **Move it into your repo.** Drag it out of Downloads into `Documents\GitHub\CoDrone`. It has to be in that folder or GitHub Desktop cannot see it.
+4. **Commit.** In GitHub Desktop the file shows up under Changes. Write a real summary, then Commit to main.
+5. **Push origin,** then open your repo on github.com and confirm the file is there. If you cannot see it in a browser, it did not submit.
+
+Do this at the end of every session, even if the work is not finished. The editor autosaves, but it does not back up to anything you own.
 
 ---
 
 ## Turn in
 
-Push `tour.py` to your repo, plus a `README.md` answering:
+`drone00b.py` in your CoDrone repo, plus a `README.md` answering:
 
 1. What did the connection window look like before you connected, and after?
 2. Name three functions you found in the autocomplete list that you have not used yet.
