@@ -1,84 +1,97 @@
 # Drone Lesson 1: Your First Program
 
-**Goal:** connect the drone to the browser editor, run a program that checks the battery, then run a program that takes off, hovers, and lands.
+**Goal:** run a program that reads the drone's battery, then run a program that takes off, hovers, and lands.
 
-**You need:** your drone and its matching controller, the USB cable, a charged drone battery, and your taped square on the floor.
+**Before this lesson:** finish Task 00b, the editor tour. This lesson assumes you can already connect and find your way around the editor.
 
-**Keep open:** the CoDrone EDU Python Command Reference. Section 2 is the controller, section 3 is the code.
+**You need:** your drone and its matching controller, the data cable, a charged battery, and your taped square on the floor.
+
+**Keep open:** the CoDrone EDU Python Command Reference. Section 2 is the controller, section 3 on is the code.
 
 ---
 
-## 1. Before you touch the computer
+## 1. Pre-flight checks
 
-Do the same checks you did for hand flying:
+Every flight, every time:
 
 - Battery in the drone, charged.
 - All four propellers on, none chipped or loose.
-- Controller on, paired to your drone. The screen should not say SEARCHING.
+- Your square is clear. Nothing fragile inside it.
+- Controller paired to your drone. The screen should not say SEARCHING.
 
-**Your controller stays in your hands for the whole lesson.** If the drone does something you did not expect, press and hold `L1` and pull down on the left joystick. That is emergency stop, and it works no matter what your program is doing.
+**Three ways to stop the drone.** Know all three before you click Run:
 
----
-
-## 2. Open the editor
-
-Go to **codrone.robolink.com/edu/python/** in **Google Chrome**. It has to be Chrome, on a laptop or Chromebook. Tablets and phones will not work.
-
-Four parts of the screen to know:
-
-| Part | Where | What it is for |
+| Where | How | What happens |
 |---|---|---|
-| Files | Left side | Your Python files. New file and upload icons are at the top right of this panel. |
-| Code editor | Middle | Where you type. Each file you open gets a tab. |
-| Console | Right side, click the Console button | Where `print()` output shows up, and where errors appear. |
-| Connect | Top of the page | Connects the editor to your controller. |
+| Controller | Hold `L1` and pull the left joystick down | Motors cut. The drone drops. |
+| Editor | Land button | Controlled landing, wherever the program is. |
+| Editor | Emergency Stop button | Motors cut. Try to catch the drone. |
 
-The layout changes a little when Robolink updates the site. If a button is not exactly where this says, look around for the same word.
-
-Make a new Python file and name it `first_flight.py`. Do not use spaces in the file name.
+The controller works no matter what the computer is doing. Keep it in your hands.
 
 ---
 
-## 3. Plug in and connect
+## 2. Connect and open a file
 
-1. Plug the USB cable into the **controller**, not the drone. The drone has no data port you will ever use.
-2. Click **Connect** in the editor. Chrome will pop up a list of ports it can see. Pick the one that appeared when you plugged in the controller and confirm.
-3. The controller should switch to the **LINK state**. That is the mode where it passes your program's commands out to the drone.
+1. Battery into the drone.
+2. Controller into the computer with the data cable. It should pair and go to LINK state on its own. If not, press the power button once.
+3. Click **Connect** in the connection window, bottom left. Pick your drone in the popup.
+4. The connection window turns green and says CoDrone EDU.
 
-Two things that go wrong here:
-
-- **No ports in the list.** Try the other end of the cable, or a different cable. Some USB cables are charge-only and cannot carry data.
-- **"Drone is connected in another tab."** You or someone else left the editor open somewhere. Close the other tab and try again.
+Right-click `my projects` and make a new file called `first_flight.py`.
 
 ---
 
-## 4. Your first program: no flying
+## 3. What the starter code does
 
-Type this. Do not paste it — typing it is how you learn where the parentheses go.
+Every new file comes with this already written:
 
 ```python
-from codrone_edu.drone import *    # load the drone commands
+from codrone_edu.drone import *    # load the drone library
 
-drone = Drone()                    # create the drone object
+drone = Drone()                    # create an object named drone
 drone.pair()                       # connect through the controller
 
-battery = drone.get_battery()      # ask the drone how much charge is left
-print("Battery:", battery, "%")    # show it in the Console
+# your code goes here
 
 drone.close()                      # disconnect
 ```
 
-Run it. Open the Console and read the number.
+You do not type these lines. You add to the middle.
 
-**What just happened.** `Drone()` made an object that represents your drone. Every command after that starts with `drone.` because you are telling that object to do something. `get_battery()` is a *getter* — it hands a value back to your program, and you have to do something with it or it disappears. Here we stored it in `battery` and printed it.
+`Drone()` makes an object that stands for your physical drone. Everything you write from here starts with `drone.` because you are telling that object what to do. The name has to stay `drone` — the editor does not allow anything else.
 
-If the number is under 50%, swap the battery before you fly. Under 50% the drone gets unreliable and will not flip.
+If you delete a starter line by accident, opening a new tab brings it back.
 
 ---
 
-## 5. Your first flight
+## 4. First program: no flying
 
-Put the drone in the middle of your square, facing away from you. Add three lines to the middle of your program:
+Add two lines in the middle:
+
+```python
+from codrone_edu.drone import *
+
+drone = Drone()
+drone.pair()
+
+battery = drone.get_battery()      # ask the drone how much charge is left
+print("Battery:", battery, "%")    # show it in the Console
+
+drone.close()
+```
+
+Click **Run**. Open the **Console** on the right and read the number.
+
+**What happened.** `get_battery()` is a *getter*. It hands a value back to your program, and you have to catch it or it disappears. Here it went into the variable `battery`, and `print()` sent it to the Console. A getter on a line by itself does nothing you can see.
+
+Under 50% battery, swap it. The drone gets unreliable and will not flip.
+
+---
+
+## 5. First flight
+
+Put the drone in the middle of your square, facing away from you. Add three lines:
 
 ```python
 from codrone_edu.drone import *
@@ -99,29 +112,33 @@ Before you click Run:
 
 - Controller in your hands.
 - Eyes on the drone, not the screen.
-- Call out "flying" so the people near you know.
+- Say "flying" so the people near you know.
 
 Run it.
 
-**The one rule that catches everyone:** you need `hover()` or a `time.sleep()` between `takeoff()` and `land()`. Without it, the drone is still stabilizing when the land command arrives and it never hears it. If you delete the `hover(3)` line and run it again, you will see the drone take off and just sit there. Try it — it is worth seeing once.
+**The one rule that catches everyone:** you need `hover()` or a `time.sleep()` between `takeoff()` and `land()`. Without it, the drone is still stabilizing when the land command arrives and it never hears it. Delete the `hover(3)` line and run it again — the drone takes off and just sits there. Worth seeing once so you recognize it later.
+
+Use the editor's **Land** button to bring it down after that.
 
 ---
 
 ## 6. Change three things
 
-Run each of these as its own flight. Land the drone between attempts.
+Run each as its own flight. Land between attempts.
 
-1. Change `hover(3)` to `hover(1)` and then to `hover(6)`. Watch how long it holds position.
+1. Change `hover(3)` to `hover(1)`, then `hover(6)`. Watch how steady it is at the end of the long one.
 2. Add a light before takeoff:
    ```python
-   drone.set_drone_LED(0, 255, 0, 100)    # green, full brightness
+   drone.set_drone_LED(0, 255, 0, 100)    # red, green, blue, brightness
    ```
-   The four numbers are red, green, blue, and brightness. Make it your own color.
+   Make it your own color. Colors go 0–255, brightness 0–100.
 3. Add a sound:
    ```python
    drone.drone_buzzer(440, 500)    # 440 Hz for 500 milliseconds
    ```
-   The second number is **milliseconds**, not seconds. 500 is half a second.
+   The second number is **milliseconds**. 500 is half a second.
+
+Not sure what a command takes? Look it up in the **Documentation** panel on the right. Every function there has its syntax, parameters, and a runnable example.
 
 ---
 
@@ -129,19 +146,26 @@ Run each of these as its own flight. Land the drone between attempts.
 
 | What you see | What it usually is |
 |---|---|
-| Nothing happens when you click Run | Not connected, or the controller is not in the LINK state. |
-| Program will not connect | Another tab still has the drone. Close it. |
+| Nothing happens when you click Run | Not connected, or the controller is not in LINK state. Check that the connection window is green. |
+| Will not connect | Another browser tab still has the drone. Close it. |
 | Drone takes off and lands right away | Missing `hover()` between `takeoff()` and `land()`. |
 | `land()` gets ignored | Same thing. Add `hover(1)`. |
-| Red error text in the Console | Read the last line first. It usually names the line number and the misspelled command. |
-| Drone drifts while hovering | It needs trim. Use the direction pad on the controller. See section 2.8 of the reference. |
+| Red text in the code | A typo. Spelling and capitalization have to be exact. |
+| Red text in the Console | Read the last line first. It usually names the line number. |
+| Drone drifts while hovering | It needs trim. Use the direction pad on the controller. Reference section 2.8. |
+
+---
+
+## 8. Save your work
+
+Menu > File > Download All, or right-click `first_flight.py` and download just that file. The editor autosaves, but it does not push to GitHub. You download the file and add it to your repo yourself.
 
 ---
 
 ## Turn in
 
-Push `first_flight.py` to your repo, plus a short `README.md` that answers:
+Push `first_flight.py` and a `README.md` answering:
 
 1. What was the battery percentage on your first run?
 2. What happens if you remove the `hover()` line, and why?
-3. What did you change in step 6, and what did the drone do?
+3. What did you change in section 6, and what did the drone do?

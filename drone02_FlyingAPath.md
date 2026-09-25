@@ -10,7 +10,7 @@
 
 ## 1. Warm-up: out and back
 
-New file, `path.py`. Start from the same skeleton as Lesson 1.
+New file, `path.py`. The starter code is already there — you are filling in the middle.
 
 ```python
 from codrone_edu.drone import *
@@ -100,8 +100,6 @@ Tape a 50 cm square on the floor and see how close it stays to your tape.
 Look at the code above. Two lines repeat four times with only the turn number changing. That is what a `for` loop is for.
 
 ```python
-angle = 90                          # start at 90
-
 for i in range(4):                  # do this four times
     drone.move_forward(50, "cm", 1)
     drone.turn_left()               # turn 90 from where it is facing now
@@ -129,7 +127,9 @@ If you cannot fly it by hand, you are not ready to code it.
 Rules for the run:
 - The drone stays inside the taped area.
 - Speed 1 or lower. Fast does not help.
-- Controller in your hands the whole time.
+- Controller in your hands the whole time. The editor's Land and Emergency Stop buttons are your backup.
+
+Not sure what a command takes? The **Documentation** panel on the right has the syntax, the parameters, and a runnable example for every function.
 
 ---
 
@@ -146,6 +146,8 @@ Rules for the run:
 ---
 
 ## Turn in
+
+Download the file first — Menu > File > Download All, or right-click `path.py` and download. The editor does not push to GitHub for you.
 
 Push `path.py` and a `README.md` with:
 

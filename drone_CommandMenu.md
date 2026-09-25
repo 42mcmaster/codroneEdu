@@ -34,7 +34,7 @@ drone.close()
 
 ---
 
-## 1. Rules That Bite
+## 1.  Importante Rules
 
 Read these five before you start experimenting. They cause most of the "my code does nothing" moments.
 
