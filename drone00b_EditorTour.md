@@ -10,11 +10,11 @@
 
 ## 1. Watch the tour
 
-Watch the Python for Robolink tour video your instructor plays. Follow along on your own machine as it goes. You will use the checklist in section 6 to prove you found everything.
+Watch the Python for Robolink tour video (together in class) https://www.youtube.com/watch?v=-gKZ-JbVWOA. Follow along on your own machine as it goes. You will use the checklist in section 6 to prove you found everything.
 
 Python for Robolink is an IDE — an integrated development environment. That is a coding platform built for one job. This one is built for the CoDrone EDU.
 
-Open **codrone.robolink.com/edu/python/** in **Google Chrome**. Not Edge, not Safari, not Firefox. Some features only work in Chrome.
+Open **codrone.robolink.com/edu/python/** in **Google Chrome**. It needs to be Chrome to ensure all features work.
 
 ---
 
